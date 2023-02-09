@@ -1,10 +1,15 @@
 // App.js
 import React, { useEffect, useState } from "react";
 import './App.css';
+import { ethers } from "ethers";
+import abi from "./utils/WavePortal.json";
 const App = () => {
     
     const [currentAccount, setCurrentAccount] = useState("");
     console.log("currentAccount: ", currentAccount);
+
+    const contractAddress = "0xD87e786f3A1967f9ccA84efc42C4163aD6520859";
+    const contractABI = abi.abi;
     
     const checkIfWalletIsConnected = async () => {
 
@@ -48,6 +53,36 @@ const App = () => {
 	}
     };
 
+    const wave = async () => {
+	try {
+	    const { ethereum } = window;
+	    if (ethereum) {
+		const provider = new ethers.providers.Web3Provider(ethereum);
+		const signer = provider.getSigner();
+		const wavePortalContract = new ethers.Contract(
+		    contractAddress,
+		    contractABI,
+		    signer
+		);
+		let count = await wavePortalContract.getTotalWaves();
+		console.log("Retrived total wave count...", count.toNumber());
+		
+		// console.log("Signer:", signer);
+		
+		const waveTxn = await wavePortalContract.wave();
+		console.log("Mining...", waveTxn.hash);
+		await waveTxn.wait();
+		console.log("Mined -- ", waveTxn.hash);
+		count = await wavePortalContract.getTotalWaves();
+		console.log("Retrived total wave count...", count.toNumber());
+	    } else {
+		console.log("Ethereum object dowsn't exist!");
+	    }
+	} catch (error) {
+	    console.log(error);
+	}
+    };
+
     // following will be done on page loading
     useEffect(() => {
 	checkIfWalletIsConnected();
@@ -71,7 +106,7 @@ const App = () => {
 			✨
 		    </span>
 		</div>
-		<button className="waveButton" onClick={null}>
+		<button className="waveButton" onClick={wave}>
 		    Wave at Me
 		</button>
 		{!currentAccount && (
