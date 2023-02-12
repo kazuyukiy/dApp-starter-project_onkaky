@@ -8,7 +8,8 @@ const App = () => {
     const [currentAccount, setCurrentAccount] = useState("");
     console.log("currentAccount: ", currentAccount);
 
-    const contractAddress = "0xD87e786f3A1967f9ccA84efc42C4163aD6520859";
+    // const contractAddress = "0xD87e786f3A1967f9ccA84efc42C4163aD6520859";
+    const contractAddress = "0xe573b69a6593c867F5fA4d486Cc08143D0ceAf6e"; // section3
     const contractABI = abi.abi;
     
     const checkIfWalletIsConnected = async () => {
