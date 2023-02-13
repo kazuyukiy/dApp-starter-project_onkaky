@@ -16,7 +16,10 @@ const App = () => {
     // const contractAddress = "0xe573b69a6593c867F5fA4d486Cc08143D0ceAf6e"; // section3 lesson1
     // const contractAddress = "0xc9b847708Ee05425831B2CC235029c2904875A35"; // section3 lesson2
     // const contractAddress = "0x8Fa4c50A741BAA5E5e2527b1E1Da9F5726653609"; // section3 lesson2 part2
-    const contractAddress = "0x3147BC55588D9c1F170D4E010C25EDe723fDc387"; // section3 lesson2 part3
+    // const contractAddress = "0x3147BC55588D9c1F170D4E010C25EDe723fDc387"; // section3 lesson2 part3
+    const contractAddress = "0xc7ce7c820AB728485e2f5E291f6A3A6C0aE9cEC1"; // section4 lesson1
+
+    
     
     const contractABI = abi.abi;
 
@@ -32,13 +35,7 @@ const App = () => {
 		    contractABI,
 		    signer
 		);
-
-		console.log("App.js getAllWaves cp1");
-		
 		const waves = await wavePortalContract.getAllWaves();
-
-		console.log("App.js getAllWaves cp2");
-		
 		const wavesCleaned = waves.map((wave) => {
 		    return {
 			address: wave.waver,
@@ -142,7 +139,7 @@ const App = () => {
 		    signer
 		);
 		let count = await wavePortalContract.getTotalWaves();
-		console.log("Retrived total wave count(current)...", count.toNumber());
+		console.log("Retrived total wave count...", count.toNumber());
 
 		let contractBalance = await provider.getBalance(wavePortalContract.address);
 		console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
@@ -154,7 +151,7 @@ const App = () => {
 		await waveTxn.wait();
 		console.log("Mined -- ", waveTxn.hash);
 		count = await wavePortalContract.getTotalWaves();
-		console.log("Retrived total wave count(afterr)...", count.toNumber());
+		console.log("Retrived total wave count...", count.toNumber());
 
 		let contractBalance_post = await provider.getBalance(
 		    wavePortalContract.address
