@@ -13,7 +13,12 @@ const App = () => {
     console.log("currentAccount: ", currentAccount);
 
     // const contractAddress = "0xD87e786f3A1967f9ccA84efc42C4163aD6520859";
-    const contractAddress = "0xe573b69a6593c867F5fA4d486Cc08143D0ceAf6e"; // section3
+    // const contractAddress = "0xe573b69a6593c867F5fA4d486Cc08143D0ceAf6e"; // section3 lesson1
+    // const contractAddress = "0xc9b847708Ee05425831B2CC235029c2904875A35"; // section3 lesson2
+    const contractAddress = "0x8Fa4c50A741BAA5E5e2527b1E1Da9F5726653609"; // section3 lesson2 part2
+
+
+    
     const contractABI = abi.abi;
 
     const getAllWaves = async () => {
@@ -28,7 +33,13 @@ const App = () => {
 		    contractABI,
 		    signer
 		);
+
+		console.log("App.js getAllWaves cp1");
+		
 		const waves = await wavePortalContract.getAllWaves();
+
+		console.log("App.js getAllWaves cp2");
+		
 		const wavesCleaned = waves.map((wave) => {
 		    return {
 			address: wave.waver,
